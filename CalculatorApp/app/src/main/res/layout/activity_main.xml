@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".MainActivity">
+
+    <!-- Display -->
+    <TextView
+        android:id="@+id/tvDisplay"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:gravity="bottom|end"
+        android:padding="16dp"
+        android:text="@string/_0"
+        android:textSize="72sp"
+        android:textColor="#FFFFFF"
+        android:maxLines="1"
+        android:ellipsize="none"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <!-- Numbers grid -->
+    <android.widget.GridLayout
+        android:id="@+id/gridNumbers"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:columnCount="3"
+        android:rowCount="4"
+        app:layout_constraintTop_toBottomOf="@id/tvDisplay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/gridFunctions">
+
+        <!-- Row 1 -->
+        <Button android:id="@+id/btn7" android:text="@string/_7" style="@style/CalcNumber"/>
+        <Button android:id="@+id/btn8" android:text="@string/_8" style="@style/CalcNumber"/>
+        <Button android:id="@+id/btn9" android:text="@string/_9" style="@style/CalcNumber"/>
+
+        <!-- Row 2 -->
+        <Button android:id="@+id/btn4" android:text="@string/_4" style="@style/CalcNumber"/>
+        <Button android:id="@+id/btn5" android:text="@string/_5" style="@style/CalcNumber"/>
+        <Button android:id="@+id/btn6" android:text="@string/_6" style="@style/CalcNumber"/>
+
+        <!-- Row 3 -->
+        <Button android:id="@+id/btn1" android:text="@string/_1" style="@style/CalcNumber"/>
+        <Button android:id="@+id/btn2" android:text="@string/_2" style="@style/CalcNumber"/>
+        <Button android:id="@+id/btn3" android:text="@string/_3" style="@style/CalcNumber"/>
+
+        <!-- Row 4 -->
+        <Button android:id="@+id/btnBlank" android:enabled="false" style="@style/CalcNumber"/>
+        <Button android:id="@+id/btn0" android:text="@string/_0" style="@style/CalcNumber"/>
+        <Button android:id="@+id/btnDot" android:text="@string/_dot" style="@style/CalcNumber"/>
+    </android.widget.GridLayout>
+
+    <!-- Functions grid -->
+    <LinearLayout
+        android:id="@+id/gridFunctions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tvDisplay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.25">
+
+        <Button
+            android:id="@+id/btnClear"
+            android:text="@string/clearButton"
+            style="@style/CalcFunction"
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
+
+        <Button
+            android:id="@+id/btnDiv"
+            android:text="@string/divisionSign"
+            style="@style/CalcFunction"
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
+
+        <Button
+            android:id="@+id/btnMul"
+            android:text="@string/multiplicationSign"
+            style="@style/CalcFunction"
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
+
+        <Button
+            android:id="@+id/btnSub"
+            android:text="@string/substractionSign"
+            style="@style/CalcFunction"
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:text="@string/additionSign"
+            style="@style/CalcFunction"
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
+
+        <Button
+            android:id="@+id/btnEq"
+            android:text="@string/equalSign"
+            style="@style/CalcFunction"
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

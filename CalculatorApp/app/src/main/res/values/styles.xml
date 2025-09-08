@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base style for all calculator buttons -->
+    <style name="CalcBase" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <!-- Number buttons (square, responsive with GridLayout weights) -->
+    <style name="CalcNumber" parent="CalcBase">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_gravity">fill</item>
+        <item name="android:background">@drawable/bg_number</item>
+    </style>
+
+    <!-- Function buttons (circular, ratio-based in ConstraintLayout) -->
+    <style name="CalcFunction" parent="CalcBase">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/bg_function</item>
+    </style>
+
+
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <!-- Instruction -->
+    <TextView
+        android:id="@+id/tvInstruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guess a letter (a–z)"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Guess input -->
+    <EditText
+        android:id="@+id/etGuess"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter"
+        android:inputType="text"
+        android:maxLength="1"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Submit guess -->
+    <Button
+        android:id="@+id/btnGuess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guess"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Reset game -->
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Feedback -->
+    <TextView
+        android:id="@+id/tvFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp" />
+</LinearLayout>

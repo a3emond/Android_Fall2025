@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ex1_simpeAuth</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="submit">Submit</string>
+    <string name="birth_date_cannot_be_in_the_future">Birth date cannot be in the future.</string>
+    <string name="invalid_birth_date">Invalid birth date.</string>
+    <string name="age_cannot_be_over_100">Age cannot be over 100.</string>
+    <string name="a_teenager">a teenager</string>
+    <string name="an_adult">an adult</string>
+    <string name="welcome">"Welcome "</string>
+    <string name="you_are">"! You are "</string>
+    <string name="years_old">" years old, "</string>
+    <string name="dot">.</string>
+    <string name="select_your_date_of_birth">Select Your Date of Birth</string>
+</resources>
