@@ -1,0 +1,57 @@
+# === Android / Gradle build ===
+.gradle/
+build/
+*/build/
+local.properties
+.gradle/
+.gradle-cache/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# === IDE specific (Android Studio / IntelliJ) ===
+.idea/
+*.iml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/libraries
+.idea/caches
+
+# === OS-specific ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === Logs and temp ===
+*.log
+*.tmp
+*.swp
+*.lock
+
+# === Keystores & credentials (never commit these!) ===
+*.jks
+*.keystore
+*.pem
+*.key
+*.crt
+
+# === Build outputs ===
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+out/
+
+# === Gradle wrapper (keep wrapper jars, ignore caches) ===
+!gradle-wrapper.jar
+.gradle/
