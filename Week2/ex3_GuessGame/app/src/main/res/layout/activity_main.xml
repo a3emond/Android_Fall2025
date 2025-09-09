@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:id="@+id/tvInstruction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guess a letter (a–z)"
+        android:text="@string/guess_a_letter_a_z"
         android:textSize="18sp"
         android:layout_marginBottom="16dp" />
 
@@ -22,27 +22,33 @@
         android:id="@+id/etGuess"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:hint="Enter"
+        android:layout_marginBottom="8dp"
+        android:height="48dp"
+        android:autofillHints="none"
+        android:gravity="center"
+        android:hint="@string/enter"
         android:inputType="text"
         android:maxLength="1"
-        android:gravity="center"
-        android:layout_marginBottom="16dp" />
+        android:minHeight="48dp"
+        android:textColorHint="#546E7A" />
 
     <!-- Submit guess -->
     <Button
         android:id="@+id/btnGuess"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guess"
-        android:layout_marginBottom="16dp" />
+        android:text="@string/guess"
+        android:layout_marginBottom="16dp"
+        tools:ignore="VisualLintButtonSize" />
 
     <!-- Reset game -->
     <Button
         android:id="@+id/btnReset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reset"
-        android:layout_marginBottom="24dp" />
+        android:text="@string/reset"
+        android:layout_marginBottom="24dp"
+        tools:ignore="VisualLintButtonSize" />
 
     <!-- Feedback -->
     <TextView
