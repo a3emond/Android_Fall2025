@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="350dp">
+
+    <!-- Gallows (static) -->
+    <ImageView
+        android:id="@+id/gallows"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/gallows"
+        android:scaleType="fitCenter" />
+
+    <!-- Rope + body parts group (rotate as one unit) -->
+    <FrameLayout
+        android:id="@+id/ropeGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/rope"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/gallows_rope"
+            android:scaleType="fitCenter" />
+
+        <ImageView
+            android:id="@+id/head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/head"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/headEyes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/head_eyes"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/headEyesBlood1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/head_eyes_blood1"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/headEyesBlood2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/head_eyes_blood2"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/headEyesDead"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/head_eyes_dead"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/body"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/armLeft"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/arm_left"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/armRight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/arm_right"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/legLeft"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/leg_left"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/legRight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/leg_right"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+    </FrameLayout>
+</FrameLayout>

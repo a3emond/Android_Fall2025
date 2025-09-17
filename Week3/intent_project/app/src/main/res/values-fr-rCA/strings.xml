@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">intentProject</string>
+    <string name="enter_your_name">Entrez votre nom</string>
+    <string name="play">Jouer</string>
+    <string name="welcome_message">Bienvenue, %s!</string>
+    <string name="guess_a_letter_a_z">Guess a letter (a–z)</string>
+    <string name="enter">Entrer</string>
+    <string name="guess">Deviner</string>
+    <string name="reset">Rinitialiser</string>
+
+    <string-array name="rules_array">
+        <item>Règle 1 : Devine la lettre cachée.</item>
+        <item>Règle 2 : Tu peux faire autant d’essais que nécessaire.</item>
+        <item>Règle 3 : Après chaque essai, on t’indiquera si la bonne lettre est avant ou après ton choix dans l’alphabet.</item>
+    </string-array>
+
+</resources>

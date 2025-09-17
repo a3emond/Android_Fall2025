@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">intentProject</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="play">Play</string>
+    <string name="welcome_message">Welcome, %s!</string>
+    <string name="guess_a_letter_a_z">Guess a letter (a–z)</string>
+    <string name="enter">Enter</string>
+    <string name="guess">Guess</string>
+    <string name="reset">Reset</string>
+
+    <string-array name="rules_array">
+        <item>Rule 1: Guess the hidden letter.</item>
+        <item>Rule 2: You can guess as many times as you need.</item>
+        <item>Rule 3: After each guess, you will be told if the correct letter is alphabetically above or below your guess.</item>
+    </string-array>
+
+</resources>
