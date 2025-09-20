@@ -12,13 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IntentProject">
         <activity
-            android:name=".views.StatisticsActivity"
+            android:name=".viewcontrollers.StatisticsActivity"
             android:exported="false" />
         <activity
-            android:name=".views.GameActivity"
+            android:name=".viewcontrollers.GameActivity"
             android:exported="false" />
         <activity
-            android:name=".views.MainActivity"
+            android:name=".viewcontrollers.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

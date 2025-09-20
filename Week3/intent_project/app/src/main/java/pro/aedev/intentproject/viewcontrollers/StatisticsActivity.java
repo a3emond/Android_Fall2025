@@ -1,4 +1,4 @@
-package pro.aedev.intentproject.views;
+package pro.aedev.intentproject.viewcontrollers;
 
 import android.os.Bundle;
 import android.view.View;
