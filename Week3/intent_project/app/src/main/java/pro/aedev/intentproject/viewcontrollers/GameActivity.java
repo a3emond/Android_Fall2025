@@ -1,4 +1,4 @@
-package pro.aedev.intentproject.views;
+package pro.aedev.intentproject.viewcontrollers;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import pro.aedev.intentproject.R;
-import pro.aedev.intentproject.controllers.GameController;
+import pro.aedev.intentproject.services.GameController;
 import pro.aedev.intentproject.utils.IntentHelper;
 
 public class GameActivity extends AppCompatActivity {

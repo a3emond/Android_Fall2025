@@ -1,4 +1,4 @@
-package pro.aedev.intentproject.views;
+package pro.aedev.intentproject.viewcontrollers;
 
 import androidx.appcompat.app.AppCompatActivity;
 

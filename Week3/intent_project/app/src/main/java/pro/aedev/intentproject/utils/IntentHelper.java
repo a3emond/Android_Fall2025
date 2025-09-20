@@ -6,9 +6,9 @@ import android.content.Intent;
 import pro.aedev.intentproject.models.GameState;
 import pro.aedev.intentproject.models.Player;
 import pro.aedev.intentproject.models.Statistics;
-import pro.aedev.intentproject.views.GameActivity;
-import pro.aedev.intentproject.views.MainActivity;
-import pro.aedev.intentproject.views.StatisticsActivity;
+import pro.aedev.intentproject.viewcontrollers.GameActivity;
+import pro.aedev.intentproject.viewcontrollers.MainActivity;
+import pro.aedev.intentproject.viewcontrollers.StatisticsActivity;
 
 public class IntentHelper {
 

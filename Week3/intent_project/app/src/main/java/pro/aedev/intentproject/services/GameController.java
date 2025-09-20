@@ -1,4 +1,4 @@
-package pro.aedev.intentproject.controllers;
+package pro.aedev.intentproject.services;
 
 import java.util.Random;
 
