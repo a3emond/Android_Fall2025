@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center_vertical"
@@ -9,21 +10,24 @@
     <!-- Player name input -->
     <EditText
         android:id="@+id/editName"
-        android:autofillHints="@string/enter_your_name"
-        android:hint="@string/enter_your_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:inputType="textPersonName" />
+        android:autofillHints="@string/enter_your_name"
+        android:hint="@string/enter_your_name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp" />
 
     <!-- Mode switch -->
     <Switch
         android:id="@+id/modeSwitch"
-        android:text="Play with numbers"
-        android:checked="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:checked="false"
+        android:minHeight="48dp"
+        android:text="Play with numbers"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <!-- Rules container (dynamically filled) -->
     <LinearLayout
@@ -48,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:background="@drawable/button_3state"
         android:visibility="gone" />
 
     <!-- New Player button -->
@@ -56,6 +61,7 @@
         android:text="@string/new_player"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_3state"
         android:layout_marginTop="12dp" />
 
     <!-- Stats button -->
@@ -64,6 +70,7 @@
         android:text="@string/view_statistics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_3state"
         android:layout_marginTop="12dp" />
 
 </LinearLayout>
