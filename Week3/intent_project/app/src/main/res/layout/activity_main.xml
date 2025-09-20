@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Player name input -->
     <EditText
         android:id="@+id/editName"
         android:autofillHints="@string/enter_your_name"
@@ -13,8 +14,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:inputType="text" />
+        android:inputType="textPersonName" />
 
+    <!-- Mode switch -->
+    <Switch
+        android:id="@+id/modeSwitch"
+        android:text="Play with numbers"
+        android:checked="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Rules container (dynamically filled) -->
     <LinearLayout
         android:id="@+id/rulesContainer"
         android:orientation="vertical"
@@ -22,12 +33,37 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp" />
 
+    <!-- Play button -->
     <Button
         android:id="@+id/btnPlay"
         android:text="@string/play"
         android:enabled="false"
-        android:layout_marginTop="24dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <!-- Continue button (hidden by default, shown if unfinished game exists) -->
+    <Button
+        android:id="@+id/btnContinue"
+        android:text="@string/continue_unfinished_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:visibility="gone" />
+
+    <!-- New Player button -->
+    <Button
+        android:id="@+id/btnNewPlayer"
+        android:text="@string/new_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp" />
+
+    <!-- Stats button -->
+    <Button
+        android:id="@+id/btnStats"
+        android:text="@string/view_statistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp" />
 
 </LinearLayout>

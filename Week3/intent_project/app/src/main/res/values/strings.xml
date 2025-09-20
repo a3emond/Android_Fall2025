@@ -7,6 +7,16 @@
     <string name="enter">Enter</string>
     <string name="guess">Guess</string>
     <string name="reset">Reset</string>
+    <string name="back_to_main">Back to Main</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="view_statistics">View Statistics</string>
+    <string name="play_with_numbers">Play with numbers</string>
+    <string name="continue_unfinished_game">Continue Unfinished Game</string>
+    <string name="new_player">New Player</string>
+    <string name="back_to_game">Back to Game</string>
+    <string name="guess_a_number_1_26_attempts_left">Guess a number (1–26) — Attempts left: %d</string>
+
+    <string name="guess_a_letter_a_z_attempts_left">"Guess a letter (a–z) — Attempts left: ,%s!"</string>
 
     <string-array name="rules_array">
         <item>Rule 1: Guess the hidden letter.</item>
