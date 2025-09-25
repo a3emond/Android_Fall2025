@@ -21,6 +21,17 @@ public class Student {
         return firstName + " " + lastName;
     }
 
+    // utility method to get age
+    public int getAge() {
+        Date now = new Date();
+        int age = now.getYear() - dateOfBirth.getYear();
+        if (now.getMonth() < dateOfBirth.getMonth() ||
+            (now.getMonth() == dateOfBirth.getMonth() && now.getDate() < dateOfBirth.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
     // Override toString for easy display
     @Override
     public String toString() {
