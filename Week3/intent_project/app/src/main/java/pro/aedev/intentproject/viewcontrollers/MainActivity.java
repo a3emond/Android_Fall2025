@@ -1,5 +1,6 @@
 package pro.aedev.intentproject.viewcontrollers;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ArgbEvaluator;
@@ -23,16 +24,23 @@ import pro.aedev.intentproject.utils.IntentHelper;
 
 public class MainActivity extends AppCompatActivity {
 
+    // ============================================================
+    // --- UI Components ---
+    // ============================================================
     private EditText editName;
     private Button btnPlay, btnStats, btnNewPlayer, btnContinue;
-    private ValueAnimator colorPulse;
     private Switch modeSwitch;
+    private ValueAnimator colorPulse;
 
+    // --- Game Data ---
     private Statistics statistics;
     private String restoredMode;
     private String restoredPlayerName;
     private GameState restoredGameState;
 
+    // ============================================================
+    // --- Lifecycle ---
+    // ============================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +52,37 @@ public class MainActivity extends AppCompatActivity {
         setupEventHandlers();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (colorPulse != null && colorPulse.isRunning()) {
+            colorPulse.cancel();
+        }
+        colorPulse = null;
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (statistics != null) outState.putParcelable("statistics", statistics);
+        if (restoredGameState != null) outState.putParcelable("gameState", restoredGameState);
+        if (restoredMode != null) outState.putString("mode", restoredMode);
+        if (restoredPlayerName != null) outState.putString("playerName", restoredPlayerName);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        statistics = savedInstanceState.getParcelable("statistics");
+        restoredGameState = savedInstanceState.getParcelable("gameState");
+        restoredMode = savedInstanceState.getString("mode", "letters");
+        restoredPlayerName = savedInstanceState.getString("playerName", "Guest");
+        restoreUiState();
+    }
+
+    // ============================================================
+    // --- Initialization ---
+    // ============================================================
     private void initViews() {
         editName = findViewById(R.id.editName);
         btnPlay = findViewById(R.id.btnPlay);
@@ -52,16 +91,17 @@ public class MainActivity extends AppCompatActivity {
         btnContinue = findViewById(R.id.btnContinue);
         modeSwitch = findViewById(R.id.modeSwitch);
 
+        // Rules list
         LinearLayout rulesContainer = findViewById(R.id.rulesContainer);
         String[] rules = getResources().getStringArray(R.array.rules_array);
         for (String rule : rules) {
             TextView tv = new TextView(this);
-            tv.setText("• " + rule);
+            tv.setText(getString(R.string.bullet_point, rule));
             tv.setTextSize(16);
             rulesContainer.addView(tv);
         }
 
-        // Setup color animation
+        // Button animation
         colorPulse = ValueAnimator.ofObject(
                 new ArgbEvaluator(),
                 getColor(R.color.btn_normal),
@@ -78,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadIntentData() {
         IntentHelper.GameData data = IntentHelper.extract(getIntent());
-
         statistics = data.statistics;
         restoredMode = data.mode;
         restoredPlayerName = data.playerName;
@@ -89,15 +128,17 @@ public class MainActivity extends AppCompatActivity {
         modeSwitch.setChecked("numbers".equalsIgnoreCase(restoredMode));
         editName.setText(restoredPlayerName);
 
-        boolean canContinue = restoredGameState != null &&
-                !restoredGameState.isGameOver() &&
-                restoredGameState.getGuessCount() != 0;
+        // Show Continue if a game exists (even if finished)
+        boolean canContinue = restoredGameState != null && restoredGameState.getGuessCount() > 0;
         btnContinue.setVisibility(canContinue ? View.VISIBLE : View.GONE);
 
         boolean hasName = !editName.getText().toString().trim().isEmpty();
         btnPlay.setEnabled(hasName);
     }
 
+    // ============================================================
+    // --- Event Handlers ---
+    // ============================================================
     private void setupEventHandlers() {
         editName.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -120,6 +161,9 @@ public class MainActivity extends AppCompatActivity {
         btnStats.setOnClickListener(v -> handleStats());
     }
 
+    // ============================================================
+    // --- Actions ---
+    // ============================================================
     private void handlePlay() {
         if (colorPulse.isRunning()) colorPulse.cancel();
         btnPlay.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.btn_normal)));
@@ -134,61 +178,57 @@ public class MainActivity extends AppCompatActivity {
         data.mode = selectedMode;
         data.playerName = name;
 
-        // force reset if mode changed from previous unfinished game
+        // Reset if mode changed while game unfinished
         if (restoredGameState != null && !restoredGameState.isGameOver()) {
             if (!restoredMode.equalsIgnoreCase(selectedMode)) {
-                restoredGameState = null; // discard old game
+                restoredGameState = null;
             }
         }
 
         startActivity(IntentHelper.createGameIntent(this, data));
     }
 
-
     private void handleContinue() {
         if (restoredGameState == null) return;
 
         String name = editName.getText().toString().trim();
         Player player = statistics.addPlayer(name);
-        String selectedMode = restoredMode; // continue uses restored mode by default
 
         boolean modeMismatch =
                 (modeSwitch.isChecked() && !"numbers".equalsIgnoreCase(restoredMode)) ||
                         (!modeSwitch.isChecked() && !"letters".equalsIgnoreCase(restoredMode));
 
         if (modeMismatch) {
-            new androidx.appcompat.app.AlertDialog.Builder(this)
-                    .setTitle("Mode Mismatch")
-                    .setMessage("You switched modes. Continuing will reset the saved game and start fresh in the new mode. Do you want to proceed?")
-                    .setPositiveButton("Yes, reset", (dialog, which) -> {
-                        // reset game in the *current* mode selected by the switch
-                        String newMode = modeSwitch.isChecked() ? "numbers" : "letters";
-                        IntentHelper.GameData data = new IntentHelper.GameData();
-                        data.player = player;
-                        data.statistics = statistics;
-                        data.mode = newMode;
-                        data.playerName = name;
-                        data.gameState = null; // force fresh game
-
-                        startActivity(IntentHelper.createGameIntent(this, data));
-                    })
-                    .setNegativeButton("Cancel", null)
-                    .show();
+            if (!isFinishing()) {
+                new androidx.appcompat.app.AlertDialog.Builder(this)
+                        .setTitle("Mode Mismatch")
+                        .setMessage("You switched modes. Continuing will reset the saved game and start fresh in the new mode. Do you want to proceed?")
+                        .setPositiveButton("Yes, reset", (dialog, which) -> {
+                            String newMode = modeSwitch.isChecked() ? "numbers" : "letters";
+                            IntentHelper.GameData data = new IntentHelper.GameData();
+                            data.player = player;
+                            data.statistics = statistics;
+                            data.mode = newMode;
+                            data.playerName = name;
+                            data.gameState = null;
+                            startActivity(IntentHelper.createGameIntent(this, data));
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
+            }
             return;
         }
 
-        // Normal continue
+        // Normal continue (game may be finished; GameActivity handles lock state)
         IntentHelper.GameData data = new IntentHelper.GameData();
         data.player = player;
         data.statistics = statistics;
-        data.mode = selectedMode;
+        data.mode = restoredMode;
         data.playerName = name;
         data.gameState = restoredGameState;
 
         startActivity(IntentHelper.createGameIntent(this, data));
     }
-
-
 
     private void handleNewPlayer() {
         if (restoredGameState != null && !restoredGameState.isGameOver()) {

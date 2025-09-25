@@ -15,8 +15,11 @@
     <string name="new_player">New Player</string>
     <string name="back_to_game">Back to Game</string>
     <string name="guess_a_number_1_26_attempts_left">Guess a number (1–26) — Attempts left: %d</string>
+    <string name="no_stats_available">No Stats Available</string>
 
+    <string name="game_over_message" translatable="false">GAME OVER!</string>
     <string name="guess_a_letter_a_z_attempts_left">"Guess a letter (a–z) — Attempts left: ,%s!"</string>
+    <string name="bullet_point" translatable="false">• %s!</string>
 
     <string-array name="rules_array">
         <item>Rule 1: Guess the hidden letter.</item>

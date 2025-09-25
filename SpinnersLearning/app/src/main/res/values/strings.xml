@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">SpinnersLearning</string>
+    <string name="no_selection">No selection</string>
+    <string name="select_a_name">Select a name</string>
+    <string name="afficher_le_nom_complet">Afficher le nom complet</string>
+    <string name="use_java_list_on_xml_array_off">Use Java List (ON) / XML Array (OFF)</string>
+    <!-- First names -->
+    <string-array name="first_names">
+        <item>Alexandre</item>
+        <item>Élodie</item>
+        <item>Jean-François</item>
+        <item>Marianne</item>
+        <item>Olivier</item>
+        <item>Maude</item>
+        <item>Charles</item>
+        <item>Sophie</item>
+    </string-array>
+
+    <!-- Last names -->
+    <string-array name="last_names">
+        <item>Tremblay</item>
+        <item>Gagnon</item>
+        <item>Côté</item>
+        <item>Bouchard</item>
+        <item>Lavoie</item>
+        <item>Morin</item>
+        <item>Fortin</item>
+        <item>Lefebvre</item>
+    </string-array>
+</resources>

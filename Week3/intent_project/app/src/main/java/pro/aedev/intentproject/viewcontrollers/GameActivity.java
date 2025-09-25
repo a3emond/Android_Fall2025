@@ -1,23 +1,39 @@
 package pro.aedev.intentproject.viewcontrollers;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import pro.aedev.intentproject.R;
-import pro.aedev.intentproject.services.GameController;
+import pro.aedev.intentproject.models.GameState;
+import pro.aedev.intentproject.models.Player;
+import pro.aedev.intentproject.models.Statistics;
+import pro.aedev.intentproject.services.GameService;
 import pro.aedev.intentproject.utils.IntentHelper;
 
 public class GameActivity extends AppCompatActivity {
 
+    // --- UI Elements ---
     private GridLayout gridChoices;
     private Button btnReset, btnStats;
     private TextView tvFeedback, tvInstruction, txtHello;
 
-    private GameController gameController;
+    // --- Game Logic ---
+    private GameService gameController;
+
+    // --- Animations ---
+    private ValueAnimator highlightPulse;
+
+    // ============================================================
+    // Lifecycle
+    // ============================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +41,41 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         initViews();
-        initGameFromIntent();
+
+        if (savedInstanceState != null) {
+            restoreFromBundle(savedInstanceState);
+        } else {
+            initGameFromIntent();
+        }
+
+        setupPulseAnimator();
         setupEventHandlers();
         resetUI();
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (gameController != null) {
+            outState.putParcelable("gameState", gameController.toGameState());
+            outState.putParcelable("statistics", gameController.getStatistics());
+            outState.putString("mode", gameController.getMode());
+            outState.putString("playerName", gameController.getPlayer().getName());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (highlightPulse != null && highlightPulse.isRunning()) {
+            highlightPulse.cancel();
+        }
+        highlightPulse = null;
+    }
+
+    // ============================================================
+    // Initialization
+    // ============================================================
 
     private void initViews() {
         txtHello = findViewById(R.id.txtHello);
@@ -42,10 +89,8 @@ public class GameActivity extends AppCompatActivity {
     private void initGameFromIntent() {
         IntentHelper.GameData data = IntentHelper.extract(getIntent());
 
-        // Always create controller with the requested mode
-        gameController = new GameController(data.player, data.statistics, data.mode);
+        gameController = new GameService(data.player, data.statistics, data.mode);
 
-        // Only restore if the saved state matches the requested mode
         if (data.gameState != null &&
                 data.mode != null &&
                 data.mode.equalsIgnoreCase(data.gameState.getMode())) {
@@ -55,6 +100,34 @@ public class GameActivity extends AppCompatActivity {
         txtHello.setText(getString(R.string.welcome_message, data.player.getName()));
     }
 
+    private void restoreFromBundle(@NonNull Bundle savedInstanceState) {
+        String mode = savedInstanceState.getString("mode", "letters");
+        String playerName = savedInstanceState.getString("playerName", "Guest");
+        Statistics stats = savedInstanceState.getParcelable("statistics");
+        GameState state = savedInstanceState.getParcelable("gameState");
+
+        gameController = new GameService(new Player(playerName), stats, mode);
+        if (state != null && mode.equalsIgnoreCase(state.getMode())) {
+            gameController.restoreFromState(state);
+        }
+
+        txtHello.setText(getString(R.string.welcome_message, playerName));
+    }
+
+    private void setupPulseAnimator() {
+        highlightPulse = ValueAnimator.ofObject(
+                new ArgbEvaluator(),
+                getColor(R.color.btn_normal),
+                getColor(R.color.btn_pressed)
+        );
+        highlightPulse.setDuration(800);
+        highlightPulse.setRepeatMode(ValueAnimator.REVERSE);
+        highlightPulse.setRepeatCount(ValueAnimator.INFINITE);
+    }
+
+    // ============================================================
+    // Event Handlers
+    // ============================================================
 
     private void setupEventHandlers() {
         btnReset.setOnClickListener(v -> handleReset());
@@ -66,35 +139,21 @@ public class GameActivity extends AppCompatActivity {
 
         String result = gameController.processGuess(guess);
         tvFeedback.setText(result);
-
         clickedButton.setEnabled(false);
 
         if (gameController.isGameOver()) {
             disableAllChoices();
+            updateInstruction(); // force final update
+            highlightCorrectAnswer();
         } else {
             updateInstruction();
-
-            if ("letters".equalsIgnoreCase(gameController.getMode())) {
-                char g = guess.charAt(0);
-                if (result.contains("ABOVE")) {
-                    disableLetterRange('a', g);
-                } else if (result.contains("BELOW")) {
-                    disableLetterRange(g, 'z');
-                }
-            } else {
-                int g = Integer.parseInt(guess);
-                if (result.contains("higher")) {
-                    disableNumberRange(1, g);
-                } else if (result.contains("lower")) {
-                    disableNumberRange(g, 26);
-                }
-            }
+            applyRangeHints(guess, result);
         }
     }
 
     private void handleReset() {
         if (!gameController.isGameOver()) {
-            gameController.recordGameResult(false, gameController.getGuessCount());
+            gameController.forceLoss();
         }
         gameController.startNewGame();
         resetUI();
@@ -110,13 +169,32 @@ public class GameActivity extends AppCompatActivity {
         startActivity(IntentHelper.createStatisticsIntent(this, data));
     }
 
+    // ============================================================
+    // UI Updates
+    // ============================================================
+
     private void resetUI() {
         tvFeedback.setText("");
         updateInstruction();
         setupChoiceGrid();
+
+        if (gameController.isGameOver()) {
+            disableAllChoices();
+            highlightCorrectAnswer();
+
+            String result = (gameController.getMode().equals("numbers"))
+                    ? "Game over! The number was " + gameController.toGameState().getTargetNumber()
+                    : "Game over! The letter was '" + gameController.toGameState().getTargetLetter() + "'";
+            tvFeedback.setText(result);
+        }
     }
 
     private void updateInstruction() {
+        if (gameController.isGameOver()) {
+            tvInstruction.setText(R.string.game_over_message);
+            return;
+        }
+
         String mode = gameController.getMode();
         int remaining = gameController.getRemainingGuesses();
 
@@ -161,9 +239,33 @@ public class GameActivity extends AppCompatActivity {
         gridChoices.addView(btn);
     }
 
+    // ============================================================
+    // Helpers
+    // ============================================================
+
     private void disableAllChoices() {
         for (int i = 0; i < gridChoices.getChildCount(); i++) {
             gridChoices.getChildAt(i).setEnabled(false);
+        }
+    }
+
+    private void applyRangeHints(String guess, String result) {
+        if ("letters".equalsIgnoreCase(gameController.getMode())) {
+            char g = guess.charAt(0);
+            if (result.contains("ABOVE")) {
+                disableLetterRange('a', g);
+            } else if (result.contains("BELOW")) {
+                disableLetterRange(g, 'z');
+            }
+        } else {
+            try {
+                int g = Integer.parseInt(guess);
+                if (result.contains("higher")) {
+                    disableNumberRange(1, g);
+                } else if (result.contains("lower")) {
+                    disableNumberRange(g, 26);
+                }
+            } catch (NumberFormatException ignored) {}
         }
     }
 
@@ -189,6 +291,26 @@ public class GameActivity extends AppCompatActivity {
                     btn.setEnabled(false);
                 }
             } catch (NumberFormatException ignored) {}
+        }
+    }
+
+    private void highlightCorrectAnswer() {
+        String correct = gameController.getMode().equals("numbers")
+                ? String.valueOf(gameController.toGameState().getTargetNumber())
+                : String.valueOf(gameController.toGameState().getTargetLetter());
+
+        for (int i = 0; i < gridChoices.getChildCount(); i++) {
+            Button btn = (Button) gridChoices.getChildAt(i);
+            if (btn.getText().toString().equalsIgnoreCase(correct)) {
+                if (highlightPulse != null) {
+                    highlightPulse.addUpdateListener(animator -> {
+                        int color = (int) animator.getAnimatedValue();
+                        btn.setBackgroundTintList(ColorStateList.valueOf(color));
+                    });
+                    highlightPulse.start();
+                }
+                break;
+            }
         }
     }
 }

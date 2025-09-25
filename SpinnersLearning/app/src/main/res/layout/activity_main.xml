@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <!-- Switch to toggle source -->
+    <Switch
+        android:id="@+id/sourceSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/use_java_list_on_xml_array_off"
+        android:checked="false"
+        android:layout_marginBottom="16dp" />
+
+    <!-- First name spinner -->
+    <Spinner
+        android:id="@+id/firstNameSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Last name spinner -->
+    <Spinner
+        android:id="@+id/lastNameSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Button to show full name -->
+    <Button
+        android:id="@+id/showNameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/afficher_le_nom_complet" />
+
+</LinearLayout>

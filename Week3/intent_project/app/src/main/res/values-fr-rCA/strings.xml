@@ -18,6 +18,7 @@
     <string name="guess_a_number_1_26_attempts_left">Guess a number (1–26) — Attempts left: %d</string>
 
     <string name="guess_a_letter_a_z_attempts_left">"Guess a letter (a–z) — Attempts left: ,%s!"</string>
+    <string name="no_stats_available">No Stats Available</string>
 
     <string-array name="rules_array">
         <item>Règle 1 : Devine la lettre cachée.</item>
