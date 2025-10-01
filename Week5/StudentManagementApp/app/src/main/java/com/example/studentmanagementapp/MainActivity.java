@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -12,96 +13,132 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.example.studentmanagementapp.models.Student;
+import com.example.studentmanagementapp.models.ProgramData;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Spinner studentSpinner;
-    private Button showButton;
-    private ArrayList<Student> studentsList;
+    private Spinner studentSpinner, coursesSpinner;
+    private Button showStudentButton, showCourseButton;
+    private TextView programText;
+    private List<Student> studentsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addBoilerplateCode();
 
-        studentSpinner = findViewById(R.id.spinner);
-        showButton = findViewById(R.id.button);
+        // Initialize and parse XML once
+        XmlDataParser.init(this);
 
-        // Create fake data
-        studentsList = createFakeStudents();
+        studentSpinner = findViewById(R.id.spinner_student);
+        coursesSpinner = findViewById(R.id.spinner_courses);
+        showStudentButton = findViewById(R.id.button_show_student);
+        showCourseButton = findViewById(R.id.button_show_course);
+        programText = findViewById(R.id.text_program);
 
-        // Populate spinner with student names
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        // Load students list
+        studentsList = XmlDataParser.getStudents(this);
+
+        // Populate student spinner
+        ArrayAdapter<Student> studentAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
-                getStudentNames(studentsList)
+                new ArrayList<>(studentsList)
         );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        studentSpinner.setAdapter(adapter);
+        studentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        studentSpinner.setAdapter(studentAdapter);
 
-        // Button click shows selected student's info
-        showButton.setOnClickListener(v -> {
+        // Update program + courses whenever student changes
+        studentSpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(android.widget.AdapterView<?> parent, android.view.View view, int position, long id) {
+                updateProgramAndCourses(studentsList.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+                programText.setText("Program: N/A");
+                coursesSpinner.setAdapter(null);
+            }
+        });
+
+        // Show student info
+        showStudentButton.setOnClickListener(v -> {
             int pos = studentSpinner.getSelectedItemPosition();
             if (pos >= 0) {
                 Student selected = studentsList.get(pos);
-
-                SimpleDateFormat fmt = new SimpleDateFormat("dd MMM yyyy");
-                String message = "Full Name: " + selected.getFullName() +
-                        "\nAge: " + selected.getAge() +
-                        "\nDate of Birth: " + fmt.format(selected.getDateOfBirth()) +
-                        "\nEducational Level: " + selected.getEducationalLevel();
-
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Student Information")
-                        .setMessage(message)
+                        .setMessage(selected.getDisplayDetails())
                         .setPositiveButton("Close", (dialog, which) -> dialog.dismiss())
                         .setCancelable(true)
                         .show();
             }
         });
+
+        // Show course info (name + description + student score)
+        showCourseButton.setOnClickListener(v -> showCourseInfo());
     }
 
-    // Creates 15 fake students
-    private ArrayList<Student> createFakeStudents() {
-        ArrayList<Student> list = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private void updateProgramAndCourses(Student student) {
+        programText.setText("Program: " + student.getProgramRefName());
 
-        try {
-            list.add(new Student("Alice", "Johnson", sdf.parse("2010-03-15"), 5));
-            list.add(new Student("Bob", "Smith", sdf.parse("2009-07-21"), 6));
-            list.add(new Student("Charlie", "Brown", sdf.parse("2011-01-10"), 4));
-            list.add(new Student("Diana", "Miller", sdf.parse("2008-11-05"), 7));
-            list.add(new Student("Ethan", "Williams", sdf.parse("2012-02-18"), 3));
-            list.add(new Student("Fiona", "Davis", sdf.parse("2010-06-30"), 5));
-            list.add(new Student("George", "Wilson", sdf.parse("2007-09-25"), 8));
-            list.add(new Student("Hannah", "Moore", sdf.parse("2009-12-12"), 6));
-            list.add(new Student("Ian", "Taylor", sdf.parse("2011-04-03"), 4));
-            list.add(new Student("Julia", "Anderson", sdf.parse("2012-08-17"), 3));
-            list.add(new Student("Kevin", "Thomas", sdf.parse("2008-05-14"), 7));
-            list.add(new Student("Lily", "Jackson", sdf.parse("2009-10-28"), 6));
-            list.add(new Student("Mark", "White", sdf.parse("2010-09-09"), 5));
-            list.add(new Student("Nina", "Harris", sdf.parse("2011-12-22"), 4));
-            list.add(new Student("Oscar", "Martin", sdf.parse("2007-02-02"), 8));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        ProgramData program = XmlDataParser.getProgram(student.getProgramRefName());
+        List<String> courseNames = new ArrayList<>();
+        if (program != null) {
+            courseNames.addAll(program.getCourses().keySet());
         }
 
-        return list;
+        ArrayAdapter<String> coursesAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                courseNames
+        );
+        coursesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        coursesSpinner.setAdapter(coursesAdapter);
     }
 
-    // Extracts full names for display
-    private ArrayList<String> getStudentNames(ArrayList<Student> list) {
-        ArrayList<String> names = new ArrayList<>();
-        for (Student s : list) {
-            names.add(s.getFullName());
+    private void showCourseInfo() {
+        int studentPos = studentSpinner.getSelectedItemPosition();
+        int coursePos = coursesSpinner.getSelectedItemPosition();
+
+        if (studentPos >= 0 && coursePos >= 0) {
+            Student student = studentsList.get(studentPos);
+            String courseName = (String) coursesSpinner.getSelectedItem();
+
+            // Lookup program + description
+            ProgramData program = XmlDataParser.getProgram(student.getProgramRefName());
+            String description = "";
+            if (program != null && program.getCourses().containsKey(courseName)) {
+                description = program.getCourses().get(courseName);
+            }
+
+            // Lookup student score
+            int score = student.getResults().stream()
+                    .filter(r -> r.getCourseName().equals(courseName))
+                    .map(Student.CourseResult::getScore)
+                    .findFirst()
+                    .orElse(-1);
+
+            // Build message
+            StringBuilder msg = new StringBuilder();
+            msg.append("Course: ").append(courseName).append("\n");
+            msg.append("Description: ").append(description).append("\n\n");
+            msg.append("Student Score: ").append(score >= 0 ? score : "No score recorded.");
+
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("Course Information")
+                    .setMessage(msg.toString())
+                    .setPositiveButton("Close", (dialog, which) -> dialog.dismiss())
+                    .setCancelable(true)
+                    .show();
         }
-        return names;
     }
 
-    // Boilerplate wrapper
     private void addBoilerplateCode() {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);

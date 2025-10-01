@@ -1,23 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     android:gravity="center"
     android:id="@+id/main">
 
+    <!-- Student Spinner -->
     <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
+        android:id="@+id/spinner_student"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:minHeight="48dp" />
+        android:layout_marginBottom="16dp" />
 
+    <!-- Show Student Details -->
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_show_student"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/submit" />
+        android:text="Show Student Details" />
+
+    <!-- Separator -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp" />
+
+    <!-- Program.java Section -->
+    <TextView
+        android:id="@+id/text_program"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Program: -"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Courses Spinner -->
+    <Spinner
+        android:id="@+id/spinner_courses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Show Course Details -->
+    <Button
+        android:id="@+id/button_show_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Course Details" />
 
 </LinearLayout>

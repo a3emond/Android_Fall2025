@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<students>
+
+    <!-- PROFESSIONAL (DEP) -->
+    <student>
+        <firstName>Émilie</firstName>
+        <lastName>Tremblay</lastName>
+        <dateOfBirth>2010-05-14</dateOfBirth>
+        <educationLevel>PROFESSIONAL</educationLevel>
+        <programRef name="Carpentry">
+            <results>
+                <result course="Woodworking Basics">87</result>
+                <result course="Construction Techniques">82</result>
+                <result course="Blueprint Reading">75</result>
+                <result course="Finishing and Installation">90</result>
+            </results>
+        </programRef>
+    </student>
+
+    <student>
+        <firstName>Marc-André</firstName>
+        <lastName>Gagnon</lastName>
+        <dateOfBirth>2009-11-22</dateOfBirth>
+        <educationLevel>PROFESSIONAL</educationLevel>
+        <programRef name="Welding">
+            <results>
+                <result course="Welding Fundamentals">68</result>
+                <result course="Safety Procedures">85</result>
+                <result course="Metal Fabrication">74</result>
+                <result course="Advanced Welding Techniques">79</result>
+            </results>
+        </programRef>
+    </student>
+
+    <!-- COLLEGE (CEGEP) -->
+    <student>
+        <firstName>Sophie</firstName>
+        <lastName>Lavoie</lastName>
+        <dateOfBirth>2010-01-09</dateOfBirth>
+        <educationLevel>COLLEGE</educationLevel>
+        <programRef name="Computer Science">
+            <results>
+                <result course="Introduction to Programming">93</result>
+                <result course="Data Structures">88</result>
+                <result course="Databases">85</result>
+                <result course="Operating Systems">80</result>
+            </results>
+        </programRef>
+    </student>
+
+    <student>
+        <firstName>Antoine</firstName>
+        <lastName>Lefebvre</lastName>
+        <dateOfBirth>2009-03-28</dateOfBirth>
+        <educationLevel>COLLEGE</educationLevel>
+        <programRef name="Business Administration">
+            <results>
+                <result course="Accounting">76</result>
+                <result course="Marketing">83</result>
+                <result course="Microeconomics">78</result>
+                <result course="Management">88</result>
+            </results>
+        </programRef>
+    </student>
+
+    <student>
+        <firstName>Julie</firstName>
+        <lastName>Pelletier</lastName>
+        <dateOfBirth>2010-12-03</dateOfBirth>
+        <educationLevel>COLLEGE</educationLevel>
+        <programRef name="Computer Science">
+            <results>
+                <result course="Introduction to Programming">70</result>
+                <result course="Data Structures">65</result>
+                <result course="Databases">72</result>
+                <result course="Operating Systems">69</result>
+            </results>
+        </programRef>
+    </student>
+
+    <!-- UNIVERSITY -->
+    <student>
+        <firstName>Guillaume</firstName>
+        <lastName>Bouchard</lastName>
+        <dateOfBirth>2008-08-15</dateOfBirth>
+        <educationLevel>UNIVERSITY</educationLevel>
+        <programRef name="Engineering">
+            <results>
+                <result course="Calculus I">91</result>
+                <result course="Physics I">87</result>
+                <result course="Materials Science">79</result>
+                <result course="Engineering Design">85</result>
+            </results>
+        </programRef>
+    </student>
+
+    <student>
+        <firstName>Isabelle</firstName>
+        <lastName>Fortin</lastName>
+        <dateOfBirth>2009-09-27</dateOfBirth>
+        <educationLevel>UNIVERSITY</educationLevel>
+        <programRef name="Medicine">
+            <results>
+                <result course="Anatomy">88</result>
+                <result course="Physiology">84</result>
+                <result course="Pharmacology">79</result>
+                <result course="Clinical Practice">86</result>
+            </results>
+        </programRef>
+    </student>
+
+    <student>
+        <firstName>Jean-Philippe</firstName>
+        <lastName>Morin</lastName>
+        <dateOfBirth>2008-06-11</dateOfBirth>
+        <educationLevel>UNIVERSITY</educationLevel>
+        <programRef name="Engineering">
+            <results>
+                <result course="Calculus I">65</result>
+                <result course="Physics I">72</result>
+                <result course="Materials Science">70</result>
+                <result course="Engineering Design">68</result>
+            </results>
+        </programRef>
+    </student>
+
+    <student>
+        <firstName>Camille</firstName>
+        <lastName>Girard</lastName>
+        <dateOfBirth>2011-02-20</dateOfBirth>
+        <educationLevel>COLLEGE</educationLevel>
+        <programRef name="Business Administration">
+            <results>
+                <result course="Accounting">82</result>
+                <result course="Marketing">77</result>
+                <result course="Microeconomics">73</result>
+                <result course="Management">81</result>
+            </results>
+        </programRef>
+    </student>
+
+</students>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<programs>
+
+    <!-- PROFESSIONAL (DEP) -->
+    <program name="Carpentry">
+        <description>
+            Hands-on program teaching woodworking, blueprint reading, and installation.
+        </description>
+        <courses>
+            <course name="Woodworking Basics">
+                <description>Using basic tools, safety, and joinery techniques.</description>
+            </course>
+            <course name="Construction Techniques">
+                <description>Framing, foundations, and finishing structures.</description>
+            </course>
+            <course name="Blueprint Reading">
+                <description>Interpretation of construction and technical drawings.</description>
+            </course>
+            <course name="Finishing and Installation">
+                <description>Cabinetry, flooring, and final assembly skills.</description>
+            </course>
+        </courses>
+    </program>
+
+    <program name="Welding">
+        <description>
+            Training program in welding fundamentals and advanced techniques.
+        </description>
+        <courses>
+            <course name="Welding Fundamentals">
+                <description>Introduction to welding processes and equipment.</description>
+            </course>
+            <course name="Safety Procedures">
+                <description>Proper safety protocols for welding environments.</description>
+            </course>
+            <course name="Metal Fabrication">
+                <description>Fabrication of parts using MIG and TIG welding.</description>
+            </course>
+            <course name="Advanced Welding Techniques">
+                <description>Specialized welding methods for industry standards.</description>
+            </course>
+        </courses>
+    </program>
+
+    <!-- COLLEGE (CEGEP) -->
+    <program name="Computer Science">
+        <description>
+            Focuses on programming, data structures, databases, and operating systems.
+        </description>
+        <courses>
+            <course name="French">
+                <description>Mandatory general education in French communication.</description>
+            </course>
+            <course name="Philosophy">
+                <description>Introduction to reasoning and ethics.</description>
+            </course>
+            <course name="Physical Education">
+                <description>Health and fitness training.</description>
+            </course>
+            <course name="English">
+                <description>Written and oral communication skills.</description>
+            </course>
+            <course name="Humanities">
+                <description>Understanding society and culture.</description>
+            </course>
+            <course name="Introduction to Programming">
+                <description>Basic coding principles in modern languages.</description>
+            </course>
+            <course name="Data Structures">
+                <description>Arrays, linked lists, stacks, trees, and graphs.</description>
+            </course>
+            <course name="Databases">
+                <description>Relational models, SQL, and normalization.</description>
+            </course>
+            <course name="Operating Systems">
+                <description>Process management, memory, and file systems.</description>
+            </course>
+        </courses>
+    </program>
+
+    <program name="Business Administration">
+        <description>
+            Provides foundations in management, marketing, and accounting.
+        </description>
+        <courses>
+            <course name="French">
+                <description>Mandatory general education in French communication.</description>
+            </course>
+            <course name="Philosophy">
+                <description>Introduction to reasoning and ethics.</description>
+            </course>
+            <course name="Physical Education">
+                <description>Health and fitness training.</description>
+            </course>
+            <course name="English">
+                <description>Written and oral communication skills.</description>
+            </course>
+            <course name="Humanities">
+                <description>Understanding society and culture.</description>
+            </course>
+            <course name="Accounting">
+                <description>Principles of financial reporting and bookkeeping.</description>
+            </course>
+            <course name="Marketing">
+                <description>Fundamentals of market research and strategies.</description>
+            </course>
+            <course name="Microeconomics">
+                <description>Study of supply, demand, and consumer behavior.</description>
+            </course>
+            <course name="Management">
+                <description>Organizational leadership and decision-making.</description>
+            </course>
+        </courses>
+    </program>
+
+    <!-- UNIVERSITY -->
+    <program name="Engineering">
+        <description>
+            Core science and engineering design curriculum.
+        </description>
+        <courses>
+            <course name="Calculus I">
+                <description>Differential and integral calculus for engineers.</description>
+            </course>
+            <course name="Physics I">
+                <description>Classical mechanics and motion analysis.</description>
+            </course>
+            <course name="Materials Science">
+                <description>Structure and properties of engineering materials.</description>
+            </course>
+            <course name="Engineering Design">
+                <description>Introduction to design thinking and prototyping.</description>
+            </course>
+        </courses>
+    </program>
+
+    <program name="Medicine">
+        <description>
+            Prepares students for careers in clinical and research medicine.
+        </description>
+        <courses>
+            <course name="Anatomy">
+                <description>Structure of the human body.</description>
+            </course>
+            <course name="Physiology">
+                <description>Functions of human biological systems.</description>
+            </course>
+            <course name="Pharmacology">
+                <description>Principles of drug action and therapy.</description>
+            </course>
+            <course name="Clinical Practice">
+                <description>Introduction to patient care in medical settings.</description>
+            </course>
+        </courses>
+    </program>
+
+</programs>
